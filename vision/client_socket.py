@@ -13,6 +13,7 @@ data = "Hello"
 client.send(data.encode("utf8"))
 
 recv_data = client.recv(1024)
+print('received data: ', recv_data)
 
 client.close()
 
