@@ -1,0 +1,1 @@
+scp pi@192.168.1.39:/home/pi/iot/images/$1.jpg ./images/
