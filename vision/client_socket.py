@@ -3,17 +3,26 @@
 import socket
 
 SERVER_IP = '192.168.1.8'
-SERVER_PORT = 12000
+SERVER_PORT = 6800
 
-client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect((SERVER_IP, SERVER_PORT))
 
-data = "Hello"
+def imfile_to_byte(imfile):
+    with open(imfile, 'rb') as fp:
+        im_data = fp.read()
+        return im_data
 
-client.send(data.encode("utf8"))
 
-recv_data = client.recv(1024)
-print('received data: ', recv_data)
+if __name__ == "__main__":
+    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    client.connect((SERVER_IP, SERVER_PORT))
 
-client.close()
+    imfile = '~/im.jpg'
+    data = imfile_to_byte(imfile)
+
+    client.send(data)
+
+    recv_data = client.recv(1024)
+    print('received data: ', recv_data)
+
+    client.close()
 

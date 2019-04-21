@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-
+from PIL import Image
 import socket
+import io
 
-SERVER_PORT = 12000
+
+SERVER_PORT = 6800
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_socket.bind(('', SERVER_PORT))
@@ -15,7 +17,8 @@ while True:
     data = conn.recv(1024)
 
     # process data
-
+    image = Image.open(io.BytesIO(data))
+    image.show()
     # send back data
     proc_data = data
     conn.send(proc_data)
