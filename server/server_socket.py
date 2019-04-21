@@ -2,10 +2,10 @@
 
 import socket
 
-server_port = 12000
+SERVER_PORT = 12000
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server_socket.bind(('', server_port))
+server_socket.bind(('', SERVER_PORT))
 
 server_socket.listen()
 print("The server is ready to receive")
