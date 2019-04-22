@@ -2,7 +2,7 @@
 from PIL import Image
 import socket
 import io
-
+import subprocess
 
 SERVER_PORT = 6800
 CHUNK = 1024
@@ -34,6 +34,11 @@ while True:
         elif data_str == "BYE":
             print("received all image bytes")
             image = Image.open(io.BytesIO(im_bytes))
+
+            # notify about new visitor
+            subprocess.call("say -v Samantha 'You have a new visitor'",
+                            shell=True)
+
             image.show()
             break
         else:
