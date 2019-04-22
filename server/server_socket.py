@@ -14,6 +14,7 @@ server_socket.listen()
 print("The server is ready to receive")
 
 conn, addr = server_socket.accept()
+print("Connection accepted")
 im_bytes = []
 
 while True:

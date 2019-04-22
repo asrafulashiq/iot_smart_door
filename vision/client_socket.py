@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import socket
+import time
 
 SERVER_IP = '192.168.1.8'
 SERVER_PORT = 6800
@@ -22,8 +23,10 @@ def send_data(client_socket, data, type="image"):
     # get confirmation
     conf_dat = client_socket.recv(CHUNK)
     if conf_dat == "ACK".encode('utf8'):
+        print("Ack received from client")
         client_socket.sendall(data)
-        client_socket.sendall("BYE".encode())
+        time.sleep(2)
+        client_socket.sendall("BYE".encode('utf8'))
     else:
         print("No confirmation!!!!")
     # send actual file
