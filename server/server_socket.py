@@ -33,8 +33,8 @@ while True:
                 conn.sendall("ACK".encode("utf8"))
         elif data_str == "BYE":
             print("received all image bytes")
-            #image = Image.open(io.BytesIO(im_bytes))
-            #image.show()
+            image = Image.open(io.BytesIO(im_bytes))
+            image.show()
 
             break
         else:
@@ -51,5 +51,4 @@ while True:
 
     # # close connection
     # conn.close()
-
 conn.close()
