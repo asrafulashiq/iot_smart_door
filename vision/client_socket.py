@@ -17,13 +17,13 @@ def send_data(client_socket, data, type="image"):
     # initialize sending
     init_str = "type:{}".format(type)
 
-    client_socket.sendall(init_str.encode("utf8"))
+    client_socket.sendall(init_str)
 
     # get confirmation
     conf_dat = client_socket.recv(CHUNK)
-    if conf_dat.decode("utf-8") == "ACK":
+    if str(conf_dat) == "ACK":
         client_socket.sendall(data)
-        client_socket.sendall("BYE".encode("utf8"))
+        client_socket.sendall("BYE")
     else:
         print("No confirmation!!!!")
     # send actual file
