@@ -15,7 +15,7 @@ def imfile_to_byte(imfile):
 
 def send_data(client_socket, data, type="image"):
     # initialize sending
-    init_str = f"type:{type}"
+    init_str = f"type:{}".format(type)
     client_socket.sendall(init_str.encode("utf8"))
 
     # get confirmation
