@@ -23,7 +23,7 @@ while True:
         info = data.decode("utf8")
         _type = info.split(":")[-1]
         if _type == "image":
-            conn.sendall("ACK".decode("utf8"))
+            conn.sendall("ACK".encode("utf8"))
     elif data.decode("utf8") == "BYE":
         print("received all image bytes")
         image = Image.open(io.BytesIO(im_bytes))

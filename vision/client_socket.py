@@ -23,7 +23,7 @@ def send_data(client_socket, data, type="image"):
     conf_dat = client_socket.recv(CHUNK)
     if conf_dat.decode("utf-8") == "ACK":
         client_socket.sendall(data)
-        client_socket.sendall("BYE".decode("utf8"))
+        client_socket.sendall("BYE".encode("utf8"))
     else:
         print("No confirmation!!!!")
     # send actual file
