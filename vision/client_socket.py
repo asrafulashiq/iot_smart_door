@@ -15,8 +15,8 @@ def imfile_to_byte(imfile):
 
 def send_data(client_socket, data, type="image"):
     # initialize sending
-    init_str = f"type:{type}".encode('utf8')
-    client_socket.sendall(init_str)
+    init_str = f"type:{type}"
+    client_socket.sendall(init_str.encode("utf8"))
 
     # get confirmation
     conf_dat = client_socket.recv(CHUNK)
