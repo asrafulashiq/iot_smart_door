@@ -36,6 +36,8 @@ while True:
             image = Image.open(io.BytesIO(im_bytes))
             image.show()
             break
+        else:
+            im_bytes += data
     else:
         im_bytes += data
 
