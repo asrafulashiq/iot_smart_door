@@ -35,20 +35,10 @@ while True:
             print("received all image bytes")
             image = Image.open(io.BytesIO(im_bytes))
             image.show()
-
             break
         else:
             im_bytes += data
     else:
         im_bytes += data
 
-    # process data
-    # image = Image.open(io.BytesIO(data))
-    # image.show()
-    # # send back data
-    # proc_data = data
-    # conn.send(proc_data)
-
-    # # close connection
-    # conn.close()
 conn.close()

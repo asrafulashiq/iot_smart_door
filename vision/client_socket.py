@@ -39,7 +39,6 @@ if __name__ == "__main__":
 
     imfile = '/home/pi/im.jpg'
     data = imfile_to_byte(imfile)
-    # data = ("This is the main part"*10).encode("utf8")
     # send image
     send_data(client, data, type="image")
 
