@@ -15,7 +15,7 @@ print("The server is ready to receive")
 
 conn, addr = server_socket.accept()
 print("Connection accepted")
-im_bytes = []
+im_bytes = b''
 
 while True:
     data = conn.recv(CHUNK)
@@ -33,8 +33,9 @@ while True:
                 conn.sendall("ACK".encode("utf8"))
         elif data_str == "BYE":
             print("received all image bytes")
-            image = Image.open(io.BytesIO(im_bytes))
-            image.show()
+            #image = Image.open(io.BytesIO(im_bytes))
+            #image.show()
+
             break
         else:
             im_bytes += data
