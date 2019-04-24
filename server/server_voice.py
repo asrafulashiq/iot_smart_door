@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
-from PIL import Image
 import socket
 import io
 import subprocess
+import time
+import utils
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+
 
 SERVER_PORT = 6500
 CHUNK = 1024
@@ -14,29 +19,40 @@ server_socket.listen()
 print("The server is ready to receive")
 
 conn, addr = server_socket.accept()
-print("Connection accepted")
-im_bytes = b''
+logging.info("Connection accepted")
+
+
+def send_msg():
+
+    # start handshake
+    msg = input("What's your message: ")
+
+    stat = utils.start_handshake_send(conn)
+    if stat:
+        utils.send_data(conn, msg)
+
+
+choice_str = """
+What do you want to do?
+
+(a) Send a message to the visitor
+(b) Send a message to the visitor and then wait for response
+(c) Ignore
+(d) exit
+"""
 
 while True:
-    data = conn.recv(CHUNK)
 
-    try:
-        data = data.decode("utf8")
-    except:
+    my_choice = input(choice_str).lower()
+
+    if my_choice == 'a':
+        send_msg()
+    elif my_choice == 'b':
+        pass
+    elif my_choice == 'd':
+        break
+    else:
         pass
 
-    if data.startswith("type"):
-        info = str(data)
-        _type = info.split(":")[-1]
-        if _type == "voice":
-            conn.sendall("ACK".encode("utf8"))
-    elif data == "BYE":
-        print("received all image bytes")
-
-    else:
-        print(data)
-        subprocess.call("say -v Samantha 'You have a new message'",
-                        shell=True)
-        raise SystemExit
 
 conn.close()
