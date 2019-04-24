@@ -67,7 +67,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--num_frames', '-n', type=int, dest='num_frames', default=None,
                         help='Sets the number of frames to run for, otherwise runs forever.')
-    args = parser.parse_args()
+    # args = parser.parse_args()
 
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client.connect((SERVER_IP, SERVER_PORT))
