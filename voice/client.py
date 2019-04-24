@@ -43,7 +43,7 @@ if __name__ == "__main__":
             # get the data until bye   
             recv_data = utils.recv_data(client, CHUNK=CHUNK) 
             recv_data = recv_data.decode("utf8")
-            logging.info(f"Received data : {recv_data}")
+            logging.info("Received data : {}".format(recv_data))
         else:
             pass
 
