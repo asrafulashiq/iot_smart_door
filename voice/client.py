@@ -31,16 +31,9 @@ if __name__ == "__main__":
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client.connect((SERVER_IP, SERVER_PORT))
 
-<<<<<<< HEAD
     data = b"You have a nw voice"
     # send image
     send_data(client, data, type="voice")
-=======
-    imfile = '/home/pi/im.jpg'
-    data = imfile_to_byte(imfile)
-    # send image
-    send_data(client, data, type="image")
->>>>>>> 9b3e30ade6d533dc54535ef67143b65de9ab1387
 
     recv_data = client.recv(CHUNK)
     print('received data: ', recv_data)
