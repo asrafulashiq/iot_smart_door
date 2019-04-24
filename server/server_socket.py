@@ -20,18 +20,18 @@ im_bytes = b''
 while True:
     data = conn.recv(CHUNK)
 
-    data_str = None
+    data = None
     try:
-        data_str = data.decode('utf8')
+        data = data.decode('utf8')
     except:
         pass
-    if data_str is not None:
-        if data_str.startswith("type"):
-            info = str(data_str)
+    if data is not None:
+        if data.startswith("type"):
+            info = str(data)
             _type = info.split(":")[-1]
             if _type == "image":
                 conn.sendall("ACK".encode("utf8"))
-        elif data_str == "BYE":
+        elif data == "BYE":
             print("received all image bytes")
             image = Image.open(io.BytesIO(im_bytes))
 
