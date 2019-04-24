@@ -2,3 +2,4 @@
 *.jpg
 *.png
 *.wav
+__pycache__/

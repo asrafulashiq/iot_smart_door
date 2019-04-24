@@ -38,7 +38,7 @@ def recv_data(sock, end_msg="BYE", CHUNK=1024):
             data = sock.recv(CHUNK)
             if data == end_msg.encode('utf8'):
                 logging.debug("All data received")
-                return data
+                return recv_data
             else:
                 recv_data += data  
         except socket.timeout:
