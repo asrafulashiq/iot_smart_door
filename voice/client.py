@@ -9,6 +9,15 @@ SERVER_PORT = 6500
 CHUNK = 1024
 
 
+<<<<<<< HEAD
+=======
+def imfile_to_byte(imfile):
+    with open(imfile, 'rb') as fp:
+        im_data = fp.read()
+        return im_data
+
+
+>>>>>>> 9b3e30ade6d533dc54535ef67143b65de9ab1387
 def send_data(client_socket, data, type="image"):
     # initialize sending
     init_str = ("type:{}".format(type)).encode('utf8')
@@ -31,9 +40,16 @@ if __name__ == "__main__":
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client.connect((SERVER_IP, SERVER_PORT))
 
+<<<<<<< HEAD
     data = b"You have a nw voice"
     # send image
     send_data(client, data, type="voice")
+=======
+    imfile = '/home/pi/im.jpg'
+    data = imfile_to_byte(imfile)
+    # send image
+    send_data(client, data, type="image")
+>>>>>>> 9b3e30ade6d533dc54535ef67143b65de9ab1387
 
     recv_data = client.recv(CHUNK)
     print('received data: ', recv_data)
