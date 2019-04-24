@@ -9,15 +9,6 @@ SERVER_PORT = 6500
 CHUNK = 1024
 
 
-<<<<<<< HEAD
-=======
-def imfile_to_byte(imfile):
-    with open(imfile, 'rb') as fp:
-        im_data = fp.read()
-        return im_data
-
-
->>>>>>> 9b3e30ade6d533dc54535ef67143b65de9ab1387
 def send_data(client_socket, data, type="image"):
     # initialize sending
     init_str = ("type:{}".format(type)).encode('utf8')
