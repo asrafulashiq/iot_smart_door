@@ -19,7 +19,6 @@ with io.open(file_name, 'rb') as audio_file:
 
 config = types.RecognitionConfig(
     encoding=enums.RecognitionConfig.AudioEncoding.LINEAR16,
-    sample_rate_hz=44100,
     language_code='en-US')
 
 # Detects speech in the audio file

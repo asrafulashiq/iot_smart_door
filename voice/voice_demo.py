@@ -5,11 +5,22 @@ import threading
 from aiy.board import Board
 from aiy.voice.audio import AudioFormat, play_wav, record_file, Recorder
 
+import io
+import os
+
+
+from google.cloud import speech
+from google.cloud.speech import enums
+from google.cloud.speech import types
+
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--filename', '-f', default='recording.wav')
     args = parser.parse_args()
+
+    client = speech.SpeechClient()
+
 
     with Board() as board:
         print('Press button to start recording.')
@@ -36,6 +47,19 @@ def main():
         print('Playing...')
         play_wav(args.filename)
         print('Done.')
+
+        # use speech to
+        with io.open(args.filename, 'rb') as audio_file:
+            content = audio_file.read()
+            audio = types.RecognitionAudio(content=content)
+
+        config = types.RecognitionConfig(
+            encoding=enums.RecognitionConfig.AudioEncoding.LINEAR16,
+            language_code='en-US')
+        response = client.recognize(config, audio)
+
+        for result in response.results:
+            print('Transcript: {}'.format(result.alternatives[0].transcript))
 
 
 if __name__ == '__main__':
