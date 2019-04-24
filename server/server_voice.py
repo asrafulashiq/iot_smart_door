@@ -23,7 +23,6 @@ logging.info("Connection accepted")
 
 
 def send_msg():
-
     # start handshake
     msg = input("What's your message: ")
 
@@ -48,7 +47,9 @@ while True:
     if my_choice == 'a':
         send_msg()
     elif my_choice == 'b':
-        pass
+        send_msg()
+        data = utils.recv_data(conn).decode("utf8")
+        logging.info("Received: {}\n".format(data))
     elif my_choice == 'd':
         break
     else:

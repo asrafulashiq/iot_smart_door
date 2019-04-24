@@ -47,12 +47,13 @@ def recv_data(sock, end_msg="BYE", CHUNK=1024):
             return None
 
 
-def send_data(sock, data, end_msg="BYE", choice='c'):
+def send_data(sock, data, end_msg="BYE", choice=None):
     if type(data) == str:
         data = data.encode("utf8")
     sock.sendall(data)
     time.sleep(0.5)
-    sock.sendall(("CHOICE:"+choice).encode("utf8"))
-    time.sleep(0.5)
+    if choice is not None:
+        sock.sendall(("CHOICE:"+choice).encode("utf8"))
+        time.sleep(0.5)
     sock.sendall(end_msg.encode("utf8"))
     return

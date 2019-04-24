@@ -40,8 +40,8 @@ if __name__ == "__main__":
             tts.say(recv_data)
 
             if choice == 'b':
-                # listen here
-                pass
+                voice_data = utils.voice_to_text()
+                utils.send_data(client, voice_data)
 
         else:
             pass
