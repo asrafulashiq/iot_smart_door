@@ -6,7 +6,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 
 def start_handshake_send(sock, init_str="INIT", CHUNK=1024):
-    data = init_str.decode("utf8")
+    data = init_str.encode("utf8")
     sock.sendall(data)
 
     try:
@@ -22,7 +22,7 @@ def start_handshake_send(sock, init_str="INIT", CHUNK=1024):
 def start_handshake_recv(sock, init_str="INIT", CHUNK=1024):
     try:
         msg = sock.recv(CHUNK)
-        if msg == init_str.decode("utf8"):
+        if msg == init_str.encode("utf8"):
             logging.debug("handshake initiated. Ready to get msg.")
             sock.sendall(b"ACK")
             return True
