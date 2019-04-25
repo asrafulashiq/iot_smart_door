@@ -26,3 +26,4 @@ while True:
     voice_thread = VoiceServer(voice_socket=conn, log=logging)
     voice_thread.start()
     voice_thread.join()
+    logging.debug("Starting new voice Thread")
