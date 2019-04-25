@@ -4,6 +4,8 @@ import logging
 from server.vision_server_thread import VisionServer
 from server.voice_server_thread import VoiceServer
 import argparse
+from cryptography.fernet import Fernet
+
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -13,6 +15,12 @@ args = parser.parse_args()
 
 PORT = args.port
 CHUNK = 1024
+
+with open("./key.key", "rb") as fp:
+    key = fp.read()
+
+crypt = Fernet(key)
+
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_socket.bind(('', PORT))
@@ -27,10 +35,10 @@ while True:
     conn, addr = server_socket.accept()
     print("Connected to ", addr)
     conn_type = conn.recv(CHUNK)
-    if conn_type == b'VISION':
+    if conn_type == crypt.encrypt(b'VISION'):
         logging.info("Vision connected")
         conn_vision = conn
-    elif conn_type == b'VOICE':
+    elif conn_type == crypt.encrypt(b'VOICE'):
         logging.info("Voice connected")
         conn_voice = conn
     else:

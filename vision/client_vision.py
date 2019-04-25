@@ -38,6 +38,8 @@ import sys
 import logging
 import socket
 import argparse
+from cryptography.fernet import Fernet
+
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -51,6 +53,7 @@ SERVER_PORT = args.port
 SERVER_IP = args.ip
 
 CHUNK = 1024
+
 
 
 def send_data(client_socket, data, type="image"):
@@ -88,9 +91,16 @@ def main():
                         help='Sets the number of frames to run for, otherwise runs forever.')
     # args = parser.parse_args()
 
+    with open("./key.key", "rb") as fp:
+        key = fp.read()
+    crypt = Fernet(key)
+
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client.connect((SERVER_IP, SERVER_PORT))
-    client.sendall(b"VISION")
+
+    validation_msg = crypt.encrypt(b"VISION")
+
+    client.sendall(validation_msg)
 
     # Forced sensor mode, 1640x1232, full FoV. See:
     # https://picamera.readthedocs.io/en/release-1.13/fov.html#sensor-modes

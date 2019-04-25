@@ -7,6 +7,8 @@ import logging
 
 import aiy.voice.tts as tts
 import argparse
+from cryptography.fernet import Fernet
+
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -21,6 +23,12 @@ SERVER_IP = args.ip
 
 CHUNK = 1024
 
+with open("./key.key", "rb") as fp:
+    key = fp.read()
+
+crypt = Fernet(key)
+
+
 choice_str = """
 What do you want to do?
 
@@ -34,7 +42,9 @@ if __name__ == "__main__":
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client.connect((SERVER_IP, SERVER_PORT))
     logging.debug("Connected to SERVER")
-    client.sendall(b"VOICE")
+
+    validation_msg = b"VOICE" #crypt.encrypt(b"VOICE")
+    client.sendall(validation_msg)
     # wait for response
     while True:
         stat = utils.start_handshake_recv(client)
