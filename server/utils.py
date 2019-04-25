@@ -37,6 +37,7 @@ def recv_data(sock, end_msg="BYE", CHUNK=1024):
     while True:
         try:
             data = sock.recv(CHUNK).decode("utf8")
+            logging.debug("Received till : {}".format(recv_data))
             if data == end_msg:
                 logging.debug("All data received")
                 return data

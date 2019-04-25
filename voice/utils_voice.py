@@ -76,7 +76,7 @@ def voice_to_text(filename='recording.wav'):
     client = speech.SpeechClient()
 
     with Board() as board:
-        print('Press button to start recording.')
+        logging.debug('Press button to start recording.')
         board.button.wait_for_press()
 
         done = threading.Event()
