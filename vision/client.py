@@ -39,27 +39,36 @@ import sys
 import socket
 
 SERVER_IP = '192.168.1.8'
-SERVER_PORT = 6800
+SERVER_PORT = 7000
 
 CHUNK = 1024
 
 
 def send_data(client_socket, data, type="image"):
     # initialize sending
-    init_str = ("type:{}".format(type)).encode('utf8')
+    init_str = ("{}".format(type)).encode('utf8')
 
     client_socket.sendall(init_str)
 
     # get confirmation
     conf_dat = client_socket.recv(CHUNK)
-    if conf_dat == "ACK".encode('utf8'):
+    if conf_dat == b"ACK":
         print("Ack received from client")
         client_socket.sendall(data)
         sleep(2)
-        client_socket.sendall("BYE".encode('utf8'))
+        client_socket.sendall(b"BYE")
     else:
         print("No confirmation!!!!")
     # send actual file
+
+def get_order(client_socket):
+    while True:
+        conf_data = client_socket.recv(CHUNK)
+        if conf_data == b"START":
+            return True
+        elif conf_data == b"END":
+            return False
+
 
 
 def main():
@@ -90,7 +99,9 @@ def main():
 
         i = 0
 
-        while True:
+        run = get_order(client)
+
+        while run:
             stream = BytesIO()
             detected = False
             camera.capture(stream, format='jpeg')
@@ -125,8 +136,11 @@ def main():
 
                     # subprocess.call(
                     #     "mpack -s 'visitor at your door' '{}' {} ".format(imname, EMAIL), shell=True)
-                    client.close()
-                    sys.exit()
+
+                    run = get_order(client)
+                    if not run:
+                        client.close()
+                        continue
 
                 total_cam += 1
                 print('Face %d captured' % (total_cam))
@@ -134,7 +148,6 @@ def main():
             sleep(0.5)
 
         inference.close()
-
         camera.stop_preview()
 
 
