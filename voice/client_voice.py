@@ -8,6 +8,7 @@ import logging
 import aiy.voice.tts as tts
 import argparse
 from cryptography.fernet import Fernet
+from cryptography.fernet import InvalidToken
 
 
 logging.basicConfig(level=logging.DEBUG)

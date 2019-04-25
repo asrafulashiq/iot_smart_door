@@ -5,6 +5,7 @@ from server.vision_server_thread import VisionServer
 from server.voice_server_thread import VoiceServer
 import argparse
 from cryptography.fernet import Fernet
+from cryptography.fernet import InvalidToken
 
 
 logging.basicConfig(level=logging.DEBUG)
@@ -35,10 +36,15 @@ while True:
     conn, addr = server_socket.accept()
     print("Connected to ", addr)
     conn_type = conn.recv(CHUNK)
-    if conn_type == crypt.encrypt(b'VISION'):
+    try:
+        token = crypt.decrypt(conn_type)
+    except InvalidToken:
+        logging.warning("Potential hacking from {}".format(addr))
+        continue
+    if token == b'VISION':
         logging.info("Vision connected")
         conn_vision = conn
-    elif conn_type == crypt.encrypt(b'VOICE'):
+    elif token == b'VOICE':
         logging.info("Voice connected")
         conn_voice = conn
     else:
