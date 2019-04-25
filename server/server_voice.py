@@ -22,13 +22,13 @@ conn, addr = server_socket.accept()
 logging.info("Connection accepted")
 
 
-def send_msg():
+def send_msg(choice=None):
     # start handshake
     msg = input("What's your message: ")
 
     stat = utils.start_handshake_send(conn)
     if stat:
-        utils.send_data(conn, msg)
+        utils.send_data(conn, msg, choice=choice)
 
 
 choice_str = """
@@ -43,11 +43,13 @@ What do you want to do?
 while True:
 
     my_choice = input(choice_str).lower()
+    logging.info("Your choice : {}".format(my_choice))
 
     if my_choice == 'a':
-        send_msg()
+        send_msg(choice=my_choice)
     elif my_choice == 'b':
-        send_msg()
+        send_msg(choice=my_choice)
+        logging.debug("Wait for receiving voice message")
         data = utils.recv_data(conn)
         logging.info("Received: {}\n".format(data))
     elif my_choice == 'd':
