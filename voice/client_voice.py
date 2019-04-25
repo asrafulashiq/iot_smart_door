@@ -29,6 +29,7 @@ if __name__ == "__main__":
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client.connect((SERVER_IP, SERVER_PORT))
 
+    logging.debug("Connected to SERVER")
     # wait for response
     while True:
         stat = utils.start_handshake_recv(client)
