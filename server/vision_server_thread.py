@@ -52,7 +52,8 @@ class VisionServer():
             subprocess.call("say -v Samantha 'You have a new visitor'",
                             shell=True)
             image.show()
+            return True
         else:
-            pass
+            return False
         
 

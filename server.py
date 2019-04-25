@@ -41,11 +41,11 @@ while True:
 
 while True:
     vision_thread = VisionServer(sock=conn_vision, log=logging)
-    vision_thread.run()
+    ret = vision_thread.run()
     # vision_thread.join()
-
-    voice_thread = VoiceServer(voice_socket=conn, log=logging)
-    voice_thread.run()
+    if not ret:
+        voice_thread = VoiceServer(voice_socket=conn, log=logging)
+        voice_thread.run()
     # voice_thread.join()
 
 conn.close()
