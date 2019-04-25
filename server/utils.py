@@ -33,11 +33,11 @@ def start_handshake_recv(sock, init_str="INIT", CHUNK=1024):
 
 
 def recv_data(sock, end_msg="BYE", CHUNK=1024):
-    recv_data = b''
+    recv_data = ''
     while True:
         try:
-            data = sock.recv(CHUNK)
-            if data == end_msg.encode('utf8'):
+            data = sock.recv(CHUNK).decode("utf8")
+            if data == end_msg:
                 logging.debug("All data received")
                 return data
             else:

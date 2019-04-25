@@ -46,7 +46,7 @@ def start_handshake_recv(sock, init_str="INIT", CHUNK=1024):
     
 
 def recv_data(sock, end_msg="BYE", CHUNK=1024):
-    recv_data = b''
+    recv_data = ''
     choice = None
     while True:
         try:
@@ -61,7 +61,7 @@ def recv_data(sock, end_msg="BYE", CHUNK=1024):
         except socket.timeout:
             logging.error("No data!! Timeout!!!")
             return None
-
+    return
 
 def send_data(sock, data, end_msg="BYE"):
     if type(data) == str:

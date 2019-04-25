@@ -48,7 +48,7 @@ while True:
         send_msg()
     elif my_choice == 'b':
         send_msg()
-        data = utils.recv_data(conn).decode("utf8")
+        data = utils.recv_data(conn)
         logging.info("Received: {}\n".format(data))
     elif my_choice == 'd':
         break
