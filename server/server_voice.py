@@ -37,7 +37,7 @@ dict_msg_template = {
     "2": "Please leave the package outside front door",
     "3": "Please call me this number: 123432908",
     "4": "I am at work now. Can you please come tomorrow?",
-    "5": "[custom message]"
+    "5": None
 }
 msg_template = sorted(dict_msg_template.items())
 
