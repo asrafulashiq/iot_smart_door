@@ -14,10 +14,12 @@ class VisionServer(threading.Thread):
     def get_decision(self):
         while True:
             decision = input(" Start monitoring? (y/n) ->").lower()
-            if decision == 'y' or decision[0] == 'y':
+            if len(decision) == 0:
+                continue
+            if decision[0] == 'y':
                 self.socket.sendall(b"START")
                 return True
-            elif decision == 'n' or decision[0] == 'n':
+            elif decision[0] == 'n':
                 self.socket.sendall(b"END")
                 return False
             else:
