@@ -88,7 +88,7 @@ def voice_to_text(filename='recording.wav'):
             while duration < 7: #not done.is_set():
                 duration = time.monotonic() - start
                 logging.debug(
-                    'Recording: %.02f seconds [Press button to stop]' % duration)
+                    'Recording: %.02f seconds' % duration)
                 time.sleep(0.5)
 
         format = AudioFormat(sample_rate_hz=44100,
