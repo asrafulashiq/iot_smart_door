@@ -23,8 +23,10 @@ while True:
     print("Connected to ", addr)
     conn_type = conn.recv(CHUNK)
     if conn_type == b'VISION':
+        logging.info("Vision connected")
         conn_vision = conn
     elif conn_type == b'VOICE':
+        logging.info("Voice connected")
         conn_voice = conn
     else:
         print("Invalid type ", conn_type)
