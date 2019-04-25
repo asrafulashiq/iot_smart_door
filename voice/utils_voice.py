@@ -112,7 +112,9 @@ def voice_to_text(filename='recording.wav'):
             language_code='en-US')
         response = client.recognize(config, audio)
 
+        msg = None
         for result in response.results:
+            msg = result.alternatives[0].transcript
             logging.debug('Transcript: {}'.format(
                 result.alternatives[0].transcript))
-        return result.alternatives[0].transcript
+        return msg
