@@ -41,10 +41,9 @@ if __name__ == "__main__":
             tts.say(recv_data)
 
             if choice == 'b':
-                tts.say("Do you want any message to Ashraful?")
+                tts.say("Do you want to send any message to Ashraful?")
                 voice_data = utils.voice_to_text()
                 utils.send_data(client, voice_data)
-
         else:
             pass
 
