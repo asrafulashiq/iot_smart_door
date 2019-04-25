@@ -43,7 +43,7 @@ while True:
     vision_thread = VisionServer(sock=conn_vision, log=logging)
     ret = vision_thread.run()
     # vision_thread.join()
-    if not ret:
+    if ret:
         voice_thread = VoiceServer(voice_socket=conn, log=logging)
         voice_thread.run()
     # voice_thread.join()
