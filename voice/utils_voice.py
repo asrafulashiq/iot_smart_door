@@ -79,12 +79,13 @@ def voice_to_text(filename='recording.wav'):
         logging.debug('Press button to start recording.')
         board.button.wait_for_press()
 
-        done = threading.Event()
-        board.button.when_pressed = done.set
+        # done = threading.Event()
+        # board.button.when_pressed = done.set
 
         def wait():
             start = time.monotonic()
-            while not done.is_set():
+            duration = 0
+            while duration < 7: #not done.is_set():
                 duration = time.monotonic() - start
                 logging.debug(
                     'Recording: %.02f seconds [Press button to stop]' % duration)
@@ -94,12 +95,12 @@ def voice_to_text(filename='recording.wav'):
                              num_channels=1, bytes_per_sample=2)
         record_file(format, filename=filename,
                     wait=wait, filetype='wav')
-        logging.debug('Press button to play recorded sound.')
-        board.button.wait_for_press()
+        #logging.debug('Press button to play recorded sound.')
+        #board.button.wait_for_press()
 
-        logging.debug('Playing...')
-        play_wav(filename)
-        logging.debug('Done.')
+        # logging.debug('Playing...')
+        # play_wav(filename)
+        # logging.debug('Done.')
 
         # use speech to
         with io.open(filename, 'rb') as audio_file:
