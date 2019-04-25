@@ -3,10 +3,15 @@ import socket
 import logging
 from server.vision_server_thread import VisionServer
 from server.voice_server_thread import VoiceServer
+import argparse
 
 logging.basicConfig(level=logging.DEBUG)
 
-PORT = 7000
+parser = argparse.ArgumentParser(description='get port')
+parser.add_argument("--port", "-p", type=int, default=7000)
+args = parser.parse_args()
+
+PORT = args.port
 CHUNK = 1024
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

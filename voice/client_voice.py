@@ -6,13 +6,18 @@ import utils_voice as utils
 import logging
 
 import aiy.voice.tts as tts
-
+import argparse
 
 logging.basicConfig(level=logging.DEBUG)
 
+parser = argparse.ArgumentParser(description='get port')
+parser.add_argument("--port", "-p", type=int, default=7000)
+parser.add_argument("--ip", type=str, default='192.168.1.8')
+args = parser.parse_args()
 
-SERVER_IP = '192.168.1.8'
-SERVER_PORT = 7000
+SERVER_PORT = args.port
+
+SERVER_IP = args.ip
 
 CHUNK = 1024
 
