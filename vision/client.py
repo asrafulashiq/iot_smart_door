@@ -143,7 +143,7 @@ def main():
 
                     run = get_order(client)
                     if not run:
-                        client.close()
+                        #client.close()
                         continue
 
                 total_cam += 1
