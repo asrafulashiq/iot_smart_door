@@ -40,6 +40,7 @@ while True:
         token = crypt.decrypt(conn_type)
     except InvalidToken:
         logging.warning("Potential hacking from {}".format(addr))
+
         continue
     if token == b'VISION':
         logging.info("Vision connected")
