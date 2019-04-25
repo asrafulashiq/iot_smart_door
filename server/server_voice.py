@@ -10,7 +10,7 @@ from voice_server_thread import VoiceServer
 logging.basicConfig(level=logging.DEBUG)
 
 
-SERVER_PORT = 6500
+SERVER_PORT = 6800
 CHUNK = 1024
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

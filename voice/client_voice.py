@@ -12,7 +12,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 
 SERVER_IP = '192.168.1.8'
-SERVER_PORT = 6500
+SERVER_PORT = 6800
 
 CHUNK = 1024
 
