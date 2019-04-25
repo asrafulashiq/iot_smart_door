@@ -35,9 +35,9 @@ def send_msg(conn, msg, choice=None):
         utils.send_data(conn, msg, choice=choice)
 
 
-class VoiceServer(threading.Thread):
+class VoiceServer():
     def __init__(self, voice_socket=None, log=None):
-        threading.Thread.__init__(self)
+        # threading.Thread.__init__(self)
         self.socket = voice_socket
         self.log = log
 

@@ -5,12 +5,11 @@ import io
 
 CHUNK = 1024
 
-class VisionServer(threading.Thread):
+class VisionServer():
     def __init__(self, sock=None, log=None):
-        threading.Thread.__init__(self)
+        # threading.Thread.__init__(self)
         self.socket = sock
         self.log = log
-        self.lock = threading.RLock()
 
     def get_decision(self):
         while True:
