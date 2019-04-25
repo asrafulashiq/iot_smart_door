@@ -35,8 +35,12 @@ import datetime
 import os
 import glob
 import sys
-
+import logging
 import socket
+
+
+logging.basicConfig(level=logging.DEBUG)
+
 
 SERVER_IP = '192.168.1.8'
 SERVER_PORT = 7000
@@ -46,7 +50,7 @@ CHUNK = 1024
 
 def send_data(client_socket, data, type="image"):
     # initialize sending
-    init_str = ("{}".format(type)).encode('utf8')
+    init_str = type.encode('utf8')
 
     client_socket.sendall(init_str)
 
@@ -68,7 +72,6 @@ def get_order(client_socket):
             return True
         elif conf_data == b"END":
             return False
-
 
 
 def main():
@@ -111,6 +114,7 @@ def main():
             image = Image.open(stream)
             faces = face_detection.get_faces(inference.run(image))
             if len(faces) > 0:
+                print("Found face")
                 draw = ImageDraw.Draw(image)
                 for face in faces:
                     x, y, width, height = face.bounding_box

@@ -30,6 +30,7 @@ class VisionServer(threading.Thread):
             try:
                 msg = data.decode("utf8")
                 if msg.startswith("image"):
+                    self.log.debug("getting ready to receive image")
                     self.socket.sendall(b"ACK")
                 elif msg.startswith("BYE"):
                     self.log.debug("received all image bytes")
