@@ -85,6 +85,7 @@ def main():
 
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client.connect((SERVER_IP, SERVER_PORT))
+    client.sendall(b"VISION")
 
     # Forced sensor mode, 1640x1232, full FoV. See:
     # https://picamera.readthedocs.io/en/release-1.13/fov.html#sensor-modes

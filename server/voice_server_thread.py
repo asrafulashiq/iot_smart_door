@@ -1,5 +1,5 @@
 import threading
-import utils
+import server.utils as utils
 
 dict_msg_template = {
     "1": "Please come in",

@@ -12,7 +12,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 
 SERVER_IP = '192.168.1.8'
-SERVER_PORT = 6800
+SERVER_PORT = 7000
 
 CHUNK = 1024
 
@@ -28,8 +28,8 @@ What do you want to do?
 if __name__ == "__main__":
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client.connect((SERVER_IP, SERVER_PORT))
-
     logging.debug("Connected to SERVER")
+    client.sendall(b"VOICE")
     # wait for response
     while True:
         stat = utils.start_handshake_recv(client)

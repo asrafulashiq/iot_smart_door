@@ -10,6 +10,7 @@ class VisionServer(threading.Thread):
         threading.Thread.__init__(self)
         self.socket = sock
         self.log = log
+        self.lock = threading.RLock()
 
     def get_decision(self):
         while True:
