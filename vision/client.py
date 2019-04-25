@@ -70,8 +70,10 @@ def get_order(client_socket):
         conf_data = client_socket.recv(CHUNK)
         if conf_data == b"START":
             return True
-        elif conf_data == b"END":
-            return False
+        else:
+            pass
+        # elif conf_data == b"END":
+            # return False
 
 
 def main():
