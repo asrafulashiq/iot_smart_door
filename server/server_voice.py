@@ -68,7 +68,10 @@ while True:
         if my_choice == 'b':
             logging.debug("Wait for receiving voice message")
             data = utils.recv_data(conn)
-            logging.info("Received: {}\n".format(data))
+            print("------------")
+            print("Received: \n{}\t\n".format(data))
+            print("------------")
+
     elif my_choice == 'd':
         break
     else:
