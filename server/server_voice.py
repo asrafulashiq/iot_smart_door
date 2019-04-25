@@ -37,7 +37,7 @@ dict_msg_template = {
     "2": "Please leave the package outside front door",
     "3": "Please call me this number: 123432908",
     "4": "I am at work now. Can you please come tomorrow?",
-    "5": None
+    "5": "[custom message]"
 }
 msg_template = sorted(dict_msg_template.items())
 
@@ -63,6 +63,8 @@ while True:
     if my_choice in ('a', 'b'):
         my_temp_choice = input(my_templates).lower().strip()
         msg = dict_msg_template.get(my_temp_choice, None)
+        if my_temp_choice == '5':
+            msg = None
         send_msg(msg, choice=my_choice)
     
         if my_choice == 'b':
