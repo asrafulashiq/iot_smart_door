@@ -163,7 +163,7 @@ def main():
             stream.seek(0)
             image = Image.open(stream)
             faces = face_detection.get_faces(inference.run(image))
-            if len(faces) > 0:
+            if True or len(faces) > 0:
                 print("Found face")
                 draw = ImageDraw.Draw(image)
                 for face in faces:
@@ -176,7 +176,7 @@ def main():
                     draw.rectangle(
                         (x, y, x + width, y + height), outline='red')
                     print('Face : {}: ration : {:.2f}'.format(face, area_ratio))
-                if detected:
+                if True or detected:
                     now = str(datetime.datetime.now())
                     imname = IM_FOLDER + '/face_%s.jpg' % (now)
                     image.save(imname, 'JPEG')
