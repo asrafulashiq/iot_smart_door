@@ -138,7 +138,7 @@ def main():
     # https://picamera.readthedocs.io/en/release-1.13/fov.html#sensor-modes
     # This is the resolution inference run on.
     total_cam = 0
-    resolution = (800, 400)
+    resolution = (800, 500)
     with PiCamera(resolution=resolution, sensor_mode=4) as camera:
         camera.start_preview()
         print('Camera starting......')
