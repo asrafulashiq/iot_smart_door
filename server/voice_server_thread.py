@@ -4,7 +4,7 @@ import subprocess
 
 
 dict_msg_template = {
-    "1": "Please come in",
+    "1": "The door is open. Please come in",
     "2": "Please leave the package outside front door",
     "3": "Please call me this number: 123432908",
     "4": "I am at work now. Can you please come tomorrow?",
