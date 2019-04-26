@@ -163,41 +163,61 @@ def main():
             stream.seek(0)
             image = Image.open(stream)
             faces = face_detection.get_faces(inference.run(image))
-            if True or len(faces) > 0:
-                print("Found face")
-                draw = ImageDraw.Draw(image)
-                for face in faces:
-                    x, y, width, height = face.bounding_box
-                    area_ratio = (width*height)/(resolution[0]*resolution[1])
-                    if area_ratio < 0.06:
-                        stream.close()
-                        continue
-                    detected = True
-                    draw.rectangle(
-                        (x, y, x + width, y + height), outline='red')
-                    print('Face : {}: ration : {:.2f}'.format(face, area_ratio))
-                if True or detected:
-                    now = str(datetime.datetime.now())
-                    imname = IM_FOLDER + '/face_%s.jpg' % (now)
-                    image.save(imname, 'JPEG')
 
-                    stream.seek(0)
-                    with stream:
-                        data = stream.read()
+            now = str(datetime.datetime.now())
+            imname = IM_FOLDER + '/face_%s.jpg' % (now)
+            image.save(imname, 'JPEG')
 
-                    # send through tcp
-                    send_data(client, data, type="image")
+            stream.seek(0)
+            with stream:
+                data = stream.read()
 
-                    subprocess.call(
-                        "mpack -s 'visitor at your door' '{}' {} ".format(imname, EMAIL), shell=True)
+            # send through tcp
+            send_data(client, data, type="image")
 
-                    run = get_order(client)
-                    if not run:
-                        #client.close()
-                        continue
+            subprocess.call(
+                "mpack -s 'visitor at your door' '{}' {} ".format(imname, EMAIL), shell=True)
 
-                total_cam += 1
-                print('Face %d captured' % (total_cam))
+            run = get_order(client)
+            if not run:
+                #client.close()
+                continue
+
+            # if len(faces) > 0:
+            #     print("Found face")
+            #     draw = ImageDraw.Draw(image)
+            #     for face in faces:
+            #         x, y, width, height = face.bounding_box
+            #         area_ratio = (width*height)/(resolution[0]*resolution[1])
+            #         if area_ratio < 0.06:
+            #             stream.close()
+            #             continue
+            #         detected = True
+            #         draw.rectangle(
+            #             (x, y, x + width, y + height), outline='red')
+            #         print('Face : {}: ration : {:.2f}'.format(face, area_ratio))
+            #     if detected:
+            #         now = str(datetime.datetime.now())
+            #         imname = IM_FOLDER + '/face_%s.jpg' % (now)
+            #         image.save(imname, 'JPEG')
+
+            #         stream.seek(0)
+            #         with stream:
+            #             data = stream.read()
+
+            #         # send through tcp
+            #         send_data(client, data, type="image")
+
+            #         subprocess.call(
+            #             "mpack -s 'visitor at your door' '{}' {} ".format(imname, EMAIL), shell=True)
+
+            #         run = get_order(client)
+            #         if not run:
+            #             #client.close()
+            #             continue
+
+            #     total_cam += 1
+            #     print('Face %d captured' % (total_cam))
             stream.close()
             sleep(0.1)
 
