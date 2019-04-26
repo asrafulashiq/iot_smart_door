@@ -39,28 +39,49 @@ What do you want to do?
 (d) exit
 """
 
-if __name__ == "__main__":
-    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client.connect((SERVER_IP, SERVER_PORT))
-    logging.debug("Connected to SERVER")
 
-    validation_msg = b"VOICE" #crypt.encrypt(b"VOICE")
+def connect_to_socket():
+    while True:
+        try:
+            client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            client.connect((SERVER_IP, SERVER_PORT))
+            logging.debug("Connected to SERVER")
+        except ConnectionRefusedError:
+            logging.info("connection refused")
+            time.sleep(2)
+            continue
+        else:
+            return client
+
+def main():
+    client = connect_to_socket()
+    validation_msg = crypt.encrypt(b"VOICE")
     client.sendall(validation_msg)
     # wait for response
     while True:
-        stat = utils.start_handshake_recv(client)
-        if stat:
-            # get the data until bye   
-            recv_data, choice = utils.recv_data(client, CHUNK=CHUNK) 
-            logging.info("Received data : {}".format(recv_data))
-            logging.info("Choice : {}".format(choice))
-            tts.say(recv_data)
+        try:
+            stat = utils.start_handshake_recv(client)
+            if stat:
+                # get the data until bye
+                recv_data, choice = utils.recv_data(client, CHUNK=CHUNK)
+                logging.info("Received data : {}".format(recv_data))
+                logging.info("Choice : {}".format(choice))
+                tts.say(recv_data)
 
-            if choice == 'b':
-                tts.say("Do you want to send any message to Ashraful?")
-                voice_data = utils.voice_to_text()
-                utils.send_data(client, voice_data)
-        else:
-            pass
+                if choice == 'b':
+                    tts.say("Do you want to send any message to Ashraful?")
+                    voice_data = utils.voice_to_text()
+                    utils.send_data(client, voice_data)
+                    time.sleep(0.5)
+            else:
+                pass
+        except (ConnectionRefusedError, BrokenPipeError, ConnectionResetError) as err:
+            logging.error(err)
+            client.close()
+            main()
 
-    client.close()
+
+
+
+if __name__ == "__main__":
+    main()
