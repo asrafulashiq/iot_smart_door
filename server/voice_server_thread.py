@@ -1,5 +1,7 @@
 import threading
 import server.utils as utils
+import subprocess
+
 
 dict_msg_template = {
     "1": "Please come in",
@@ -58,6 +60,7 @@ class VoiceServer():
                 print("------------")
                 print("Received: \n{}\t\n".format(data))
                 print("------------")
+                subprocess.call("say -v Samantha {}".format(data))
         else:
             pass
 

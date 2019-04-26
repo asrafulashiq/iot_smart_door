@@ -61,7 +61,7 @@ while True:
     try:
         token = crypt.decrypt(conn_type)
     except InvalidToken:
-        logging.warning("Potential hacking from {}".format(addr))
+        logging.warning("Invalid Token. Potential hacking from {}".format(addr))
         conn.close()
         continue
     if token == b'VISION':
@@ -71,7 +71,7 @@ while True:
         logging.info("Voice connected")
         conn_voice = conn
     else:
-        logging.warning("Potential hacking from {}".format(addr))
+        logging.warning("Wrong token. Potential hacking from {}".format(addr))
         conn.close()
         print("Invalid type ", conn_type)
         continue
