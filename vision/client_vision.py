@@ -188,8 +188,8 @@ def main():
                     # send through tcp
                     send_data(client, data, type="image")
 
-                    # subprocess.call(
-                    #     "mpack -s 'visitor at your door' '{}' {} ".format(imname, EMAIL), shell=True)
+                    subprocess.call(
+                        "mpack -s 'visitor at your door' '{}' {} ".format(imname, EMAIL), shell=True)
 
                     run = get_order(client)
                     if not run:
