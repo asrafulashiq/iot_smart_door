@@ -48,7 +48,7 @@ def connect_to_socket():
             logging.debug("Connected to SERVER")
         except ConnectionRefusedError:
             logging.info("connection refused")
-            time.sleep(2)
+            time.sleep(1)
             continue
         else:
             return client

@@ -40,7 +40,7 @@ import socket
 import argparse
 from cryptography.fernet import Fernet
 from cryptography.fernet import InvalidToken
-
+import time
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -54,6 +54,20 @@ SERVER_PORT = args.port
 SERVER_IP = args.ip
 
 CHUNK = 1024
+
+
+def connect_to_socket():
+    while True:
+        try:
+            client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            client.connect((SERVER_IP, SERVER_PORT))
+            logging.debug("Connected to SERVER")
+        except ConnectionRefusedError:
+            logging.info("connection refused")
+            time.sleep(1)
+            continue
+        else:
+            return client
 
 
 
@@ -96,8 +110,7 @@ def main():
         key = fp.read()
     crypt = Fernet(key)
 
-    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client.connect((SERVER_IP, SERVER_PORT))
+    client = connect_to_socket()
 
     validation_msg = crypt.encrypt(b"VISION")
 
@@ -168,7 +181,7 @@ def main():
                 total_cam += 1
                 print('Face %d captured' % (total_cam))
             stream.close()
-            sleep(0.5)
+            sleep(0.1)
 
         inference.close()
         camera.stop_preview()

@@ -49,7 +49,10 @@ while True:
         logging.info("Voice connected")
         conn_voice = conn
     else:
+        logging.warning("Potential hacking from {}".format(addr))
+        conn.close()
         print("Invalid type ", conn_type)
+        continue
     if conn_vision is not None and conn_voice is not None:
         break    
 
