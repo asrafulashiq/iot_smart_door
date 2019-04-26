@@ -60,6 +60,13 @@ def connect_to_socket():
     while True:
         try:
             client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            for _port in get_valid_bind():
+                try:
+                    client.bind(("", _port))
+                except OSError:
+                    pass
+                else:
+                    break
             client.connect((SERVER_IP, SERVER_PORT))
             logging.debug("Connected to SERVER")
         except ConnectionRefusedError:
@@ -68,6 +75,17 @@ def connect_to_socket():
             continue
         else:
             return client
+
+
+def get_valid_bind(start=3000, delta=50):
+    cnt = 0
+    while True:
+        yield start + cnt * delta
+        cnt += 1
+
+
+def check_valid_bind(x, start=3000, delta=50):
+    return (x - start) % delta == 0
 
 
 

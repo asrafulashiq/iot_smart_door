@@ -8,6 +8,18 @@ from cryptography.fernet import Fernet
 from cryptography.fernet import InvalidToken
 
 
+def get_valid_bind(start=3000, delta=50):
+    cnt = 0
+    while True:
+        yield start + cnt * delta
+        cnt += 1
+
+
+def check_valid_bind(x, start=3000, delta=50):
+    return (x - start) % delta == 0
+
+
+
 logging.basicConfig(level=logging.DEBUG)
 
 parser = argparse.ArgumentParser(description='get port')
@@ -35,6 +47,10 @@ conn_vision = None
 while True:
     conn, addr = server_socket.accept()
     print("Connected to ", addr)
+    if not check_valid_bind(addr[1]):
+        print("Potential hacking from {}".format(addr))
+        conn.close()
+        continue
     conn_type = conn.recv(CHUNK)
     try:
         token = crypt.decrypt(conn_type)
