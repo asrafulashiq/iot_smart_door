@@ -60,7 +60,7 @@ class VoiceServer():
                 print("------------")
                 print("Received: \n{}\t\n".format(data))
                 print("------------")
-                subprocess.call("say -v Samantha {}".format(data))
+                subprocess.call("say -v Samantha '{}'".format(data))
         else:
             pass
 
