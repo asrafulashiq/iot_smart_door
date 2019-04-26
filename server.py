@@ -34,7 +34,6 @@ with open("./key.key", "rb") as fp:
 
 crypt = Fernet(key)
 
-
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_socket.bind(('', PORT))
 
@@ -48,10 +47,17 @@ while True:
     conn, addr = server_socket.accept()
     print("Connected to ", addr)
     if not check_valid_bind(addr[1]):
-        print("Potential hacking from {}".format(addr))
+        logging.warning("Invalid Port\nPotential hacking from {}".format(addr))
         conn.close()
         continue
-    conn_type = conn.recv(CHUNK)
+    conn.settimeout(5)
+    try:
+        conn_type = conn.recv(CHUNK)
+    except socket.timeout:
+        logging.error("Time out from {}".format(addr))
+        conn.close()
+        continue
+    conn.settimeout(None)
     try:
         token = crypt.decrypt(conn_type)
     except InvalidToken:
