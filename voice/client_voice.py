@@ -82,7 +82,7 @@ def main():
                 recv_data, choice = utils.recv_data(client, CHUNK=CHUNK)
                 logging.info("Received data : {}".format(recv_data))
                 logging.info("Choice : {}".format(choice))
-                tts.say(recv_data)
+                tts.say(recv_data, volume=80)
 
                 if choice == 'b':
                     tts.say("Do you want to send any message to Ashraful?")
