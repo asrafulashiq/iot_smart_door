@@ -176,7 +176,7 @@ def main():
                     draw.rectangle(
                         (x, y, x + width, y + height), outline='red')
                     print('Face : {}: ration : {:.2f}'.format(face, area_ratio))
-                if True or detected:
+                if detected:
                     now = str(datetime.datetime.now())
                     imname = IM_FOLDER + '/face_%s.jpg' % (now)
                     image.save(imname, 'JPEG')
